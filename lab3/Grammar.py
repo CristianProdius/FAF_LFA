@@ -1,5 +1,3 @@
-# ░█▒░▒█▀▒▄▀▄▒█▀  c. LFAF | FAF | FCIM | UTM | Spring 2023
-# ▒█▄▄░█▀░█▀█░█▀  FAF-212 Cristian Brinza lab3  | variant 3
 
 # Importing necessary classes from modules
 import random
@@ -67,7 +65,7 @@ Once the loop finishes, we remove the initial word from the word list
             # Generate the next character of the word based on the production rules
             self.word = self.word[:-1] + random.choice(self.P[self.word[-1]])
             
-            if self.word[-1].isupper():
+            if len(self.word) >= 2 and self.word[-1].isupper():
                 aux.append(self.word[-2])  # Add the previous non-terminal symbol to the transition list
                 aux.append(self.word[-1])  # Add the current non-terminal symbol to the transition list
             else:

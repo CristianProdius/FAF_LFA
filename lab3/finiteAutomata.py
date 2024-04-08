@@ -1,5 +1,3 @@
-# ░█▒░▒█▀▒▄▀▄▒█▀  c. LFAF | FAF | FCIM | UTM | Spring 2023
-# ▒█▄▄░█▀░█▀█░█▀  FAF-212 Cristian Brinza lab3  | variant 3
 
 # Importing necessary classes from modules
 import Grammar as G
@@ -47,6 +45,10 @@ class FiniteAutomata:
     '''
     # Defining the checkWord method
     def checkWord(self, word):
+         # Ensure self.delta is a list of lists or tuples, each with at least two elements
+        if not all(isinstance(state, (list, tuple)) and len(state) >= 2 for state in self.delta):
+            print("self.delta is not a list of lists or tuples, each with at least two elements")
+            return False
         if word[0] not in self.q0:
             return False  # Return False if the initial state is not valid for the given word
 

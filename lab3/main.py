@@ -1,5 +1,5 @@
 
-# Importing necessary classes from modules v21
+# Importing necessary classes from modules 
 from Grammar import RegularGrammar
 from finiteAutomata import FiniteAutomata
 
