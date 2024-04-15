@@ -11,6 +11,7 @@
 p. Formal Languages and Finite Automata
 </p>
 
+<p align="right" > Verificat, Dumitru Cretu</p>
 <p align="right" > student FAF-223, Cristian Prodius</p>
 </br><p align=center>  
 Chisinau 2024
@@ -59,9 +60,6 @@ and it is the main character of this here laboratory.
 
 The class new 'Lexer' was created, that opens a text file where the
 code in the given language is.
-
-For this particular example, the grammar used was the one developed
-during the semester project, that can be accessed [here](https://github.com/inga-paladi/DSL-for-PLC/blob/master/src/Program.g4).
 
 The particular code that will be used, looks like this:
 
