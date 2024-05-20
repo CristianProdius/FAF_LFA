@@ -1,59 +1,70 @@
-import re
+import json,re
 
-Tokens = [
-    [r"\A\s+", "WHITESPACE"],
-    [r"\A;" , ";"],
-    [r"\A[(]", "("],
-    [r"\A[)]", ")"],
-    [r"\A[{]", "{"],
-    [r"\A[}]", "}"],
-    [r'\A"""([\s\S]*?)"""', "BCOMMENT"],
-    [r"\A\#.*$", "COMMENT"],
-    [r"\A\bif\b", "IF"],
-    # [r"\A\belif\b", "ELIF"],
-    [r"\A\belse\b", "ELSE"],
-    [r"\A\blet\b", "DECLARATOR"],
-    [r"\A[^\s\W\d]+", "VARIABLE"],
-    [r'\A=(?!=)', "DECLARATOR_OPERATOR"],
-    [r'\A==(?!=)', "EQUAL_OPERATOR"],
-    [r'\A[+\-]', "ADDITIVE_OPERATOR"],
-    [r'\A[*\/]', "MULTIPLICATIVE_OPERATOR"],
-    [r"\A\d+", "NUMBER"],
-    [r'\A"[^"]*"', "STRING"],
-    [r"\A'[^'']*'", "STRING"],
-    # [r'^\"(?:[^"\\]|\\.)*"', "STRING"],
-    # [r"^\'(?:[^'\\]|\\.)*'", "STRING"],
+TOKENS=[
+    [r"\# .*", "COMMENT"],
+    [r"\S*if|else|elif","CONDITIONAL"],
+    [r"\(","ARGUMENT_START"],
+    [r"[A-Za-z]+","LITERAL"],
+    [r":|==|>=|<=|<|>|!=","OPERATOR"],
+    [r"\)","ARGUMENT_END"],
+    [r"{","BODY_START"],
+
+    [r"}","BODY_END"],
+
+    [r"[+-]?((\d+(\.\d+)?)|(\.\d+))","NUMERICAL"],
 ]
 
 class Tokenizer:
-    def __init__(self, string):
-        self._string = string
-        self._coursor = 0
-    
-    def hasMoreTokens(self):
-        return self._coursor < len(self._string)
-    
-    def getNextToken(self):
-        if not self.hasMoreTokens():
-            return None
-        
-        curr_string = self._string[self._coursor:]
+    def __init__(self,string):
+        self._string=string
 
-        for regex, literal_type in Tokens:
-            match = re.findall(regex, curr_string, flags=re.MULTILINE)
-            
-            if len(match) == 0:
-                continue
+    def lines_plit(self):
+        self._string=self._string.split("\n")
 
-            self._coursor += len(match[0])
+    def tokenize(self):
+        response = []
+        index = 0
+        for line in self._string:
+            print("DDD ", line, index)
 
-            if literal_type in ["WHITESPACE", "BCOMMENT","COMMENT", "NEWLINE"]:
-                if literal_type == "BCOMMENT":
-                    self._coursor += 6
+            working_line = line
+            for regex, token in TOKENS:
+                matches = [(m.start(0), m.end(0), m.group(0)) for m in re.finditer(regex, working_line)]
+                print(matches)
 
-                return self.getNextToken()
-            
-            return {
-                "type": literal_type,
-                "value": match[0]
-            }
+                for match_start, match_end, match_string in matches:
+                    s, e = index + match_start, index + match_end
+                    response.append({"type": token, "value": match_string, "start": s, "end": e})
+                    if token in ["COMMENT", "IF"]:
+                        working_line = working_line[:match_start] + working_line[match_end:]
+
+            index += len(line)
+        response = sorted(response, key=lambda x: x['start'])
+
+        return response
+
+
+
+if __name__== "__main__":
+    t=Tokenizer("""
+    if (a==b){
+#   test this thingy
+        Patient : 
+        Pregnancies : 5 
+        Glucose : 130 
+    } else {
+        Insulin : 100 
+                
+    }
+    BloodPressure : 80 
+    SkinThickness : 25 
+    BMI : 28.5 
+    DiabetesPedigreeFunction : 0.55 
+    Age : 40 
+    Outcome : 1
+
+    """)
+    t.lines_plit()
+    response=t.tokenize()
+    for i in response:
+        print(i)
