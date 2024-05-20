@@ -1,14 +1,10 @@
 
-<h4 align="center">LFAF FCIM UTM </h4>
-<h1 align='center'> 
-░█▒░▒█▀▒▄▀▄▒█▀<br>
-▒█▄▄░█▀░█▀█░█▀
-</h1>
+
 
 <h3 align="center" >Course: Formal Languages & Finite Automata</h3>
 <h1 align="center">Parser & Building an Abstract Syntax Tree</h1>
 <h4 align="center">Technical University of Moldova  </h4>
-<h4 align="center">FCIM   |   UTM   |   Spring 2023</h4><br><br>
+<h4 align="center">FCIM   |   UTM   |   Spring 2024</h4><br><br>
 
 
 <p align=center>                           
@@ -18,12 +14,10 @@
 </br><p align=right>  
 p. Formal Languages and Finite Automata
 </p>
-<p align=right>  
-lab. V. Drumea
-</p>
-<p align="right" > student FAF-212, Cristian Brinza</p>
+
+<p align="right" > student FAF-223, Cristian Prodius</p>
 </br><p align=center>  
-Chisinau 2023
+Chisinau 2024
 </p>
 <hr></br></br></br>
 
